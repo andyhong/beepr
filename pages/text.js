@@ -47,7 +47,7 @@ const Text = () => {
       const options = {
         method: "POST"
       }
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/text/${code}`, options)
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/text/${code.toUpperCase()}`, options)
       toastInfo = await response.json()
     } else {
       toastInfo = {
