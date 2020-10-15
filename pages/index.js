@@ -1,65 +1,159 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { useRouter } from 'next/router'
+import { signIn, useSession } from 'next-auth/client'
+import {
+  Box,
+  Flex,
+  Heading,
+  Button,
+  Text,
+  Link,
+  Icon,
+  Stack
+} from '@chakra-ui/core'
 
-export default function Home() {
+const Home = () => {
+  const [ session, loading ] = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    session && router.push("/text", "/text")
+  }, [session])
+
   return (
-    <div className={styles.container}>
+    <>
       <Head>
-        <title>Create Next App</title>
+        <title>beepr.</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      <Box
+        as="header"
+        backgroundColor="blue.500"
+      >
+        <Flex
+          px="3rem"
+          py="4rem"
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          maxW="25rem"
+          mx="auto"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+          <Heading
+            fontSize="5rem"
+            color="white"
+            letterSpacing="tighter"
+            mb={4}
+          >
+            beepr.
+          </Heading>
+          <Text
+            color="white"
+            fontSize="xl"
+            letterSpacing="tight"
+            mb={8}
+          >
+            A free, mobile-minded, <br />
+              <Link href="https://planning.center">
+                <Text as="u" fontWeight="bold">Planning Center</Text>
+              </Link>
+            {` `} app to page parents during church.
+          </Text>
+          <Button
+            size="lg"
+            backgroundColor="white"
+            color="blue.500"
+            fontWeight="medium"
+            onClick={() => signIn("pco")}
+          >
+            Continue with PCO
+          </Button>
+        </Flex>
+      </Box>
+      <Box
+        as="main"
+      >
+       <Flex
+          px="3rem"
+          py="4rem"
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          textAlign="center"
+          maxW="25rem"
+          mx="auto"
+        >
+          <Heading
+            letterSpacing="tighter"
+            size="xl"
+            mb={10}
+            borderBottom="4px solid"
+          >
+            how it works.
+          </Heading>
+          <Stack
+            direction="column"
+            spacing={12}
+          >
+            <Box>
+              <Icon name="check" size="2rem" color="blue.300" mb={2}/>
+              <Heading size="lg" mb={2}>Login with PCO</Heading>
+              <Text
+                letterSpacing="tight"
+                lineHeight="shorter"
+              >
+                Our app uses your Planning Center account to find active services and check-ins associated with those services. This way you don’t have to remember another password!
+              </Text>
+            </Box>
+            <Box>
+              <Icon name="check" size="2rem" color="blue.300" mb={2}/>
+              <Heading size="lg" mb={2}>Security code <br />on claim tags</Heading>
+              <Text
+                letterSpacing="tight"
+                lineHeight="shorter"
+              >
+                By using the unique security code on the child’s claim tag, our app is able to look up the emergency contact that checked them in.
+              </Text>
+            </Box>
+            <Box>
+              <Icon name="check" size="2rem" color="blue.300" mb={2}/>
+              <Heading size="lg" mb={2}>Automated texts</Heading>
+              <Text
+                letterSpacing="tight"
+                lineHeight="shorter"
+              >
+                A text message is sent to that person to let them that their assistance is required at their child’s classroom.
+              </Text>
+            </Box>
+            <Box>
+              <Icon name="check" size="2rem" color="blue.300" mb={2}/>
+              <Heading size="lg" mb={2}>Completely secure</Heading>
+              <Text
+                letterSpacing="tight"
+                lineHeight="shorter"
+              >
+                Since this app was built to be utilized by both staff and volunteers, we felt it was important that no household information would be displayed at any time. Everything is being done behind the scenes!
+              </Text>
+            </Box>
+          </Stack>
+        </Flex>
+        <Flex
+            as="footer"
+            borderTop="1px solid"
+            borderTopColor="gray.100"
+            height="6rem"
+            direction="column"
+            justifyContent="center"
+            textAlign="center"
+          >
+            Made with ❤️.
+          </Flex>
+      </Box>
+    </>
   )
 }
+
+export default Home

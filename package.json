@@ -1,6 +1,6 @@
 {
-  "name": "pco-text",
-  "version": "0.1.0",
+  "name": "beepr",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,8 +8,23 @@
     "start": "next start"
   },
   "dependencies": {
+    "@chakra-ui/core": "^0.8.0",
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
+    "date-fns": "^2.16.1",
+    "emotion-theming": "^10.0.27",
+    "isomorphic-unfetch": "^3.1.0",
+    "mongodb": "^3.6.2",
     "next": "9.5.5",
+    "next-auth": "^3.1.0",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "twilio": "^3.50.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2"
+  },
+  "peerOptionalDependencies": {
+    "mongodb": "^3.6.2"
   }
 }

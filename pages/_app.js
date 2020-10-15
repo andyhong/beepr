@@ -1,7 +1,44 @@
-import '../styles/globals.css'
+import { ThemeProvider, CSSReset } from "@chakra-ui/core"
+import { Provider as AuthProvider } from 'next-auth/client'
+import { Global, css } from '@emotion/core'
+import Head from "next/head"
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import customTheme from '../styles/theme'
+
+const GlobalStyle = ({ children }) => {
+  return (
+    <>
+      <Head>
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+      </Head>
+      <CSSReset />
+      <Global
+        styles={css`
+          html {
+            scroll-behavior: smooth;
+          }
+
+          #__next {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+          }
+        `}
+      />
+      {children}
+    </>
+  )
 }
 
-export default MyApp
+const App = ({ Component, pageProps }) => {
+  return (
+    <ThemeProvider theme={customTheme}>
+      <AuthProvider session={pageProps.session}>
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </AuthProvider>
+    </ThemeProvider>
+  )
+}
+
+export default App
