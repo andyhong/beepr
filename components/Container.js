@@ -33,7 +33,9 @@ const Container = ({ children }) => {
           <Button
             variant="link"
             color="white"
+            width="4.5rem"
             mb={-2}
+            mr={-2}
             onClick={() => signOut()}
           >
             Log out
