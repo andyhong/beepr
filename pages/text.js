@@ -65,6 +65,7 @@ const Text = () => {
       isClosable: true,
       position: "top",
     })
+    setCode("")
     setIsLoading(false)
   }
 
