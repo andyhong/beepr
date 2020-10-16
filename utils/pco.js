@@ -3,7 +3,7 @@ import fetch from 'isomorphic-unfetch'
 import { parseISO } from 'date-fns'
 
 import { connectToDatabase } from './db'
-import { getTokens } from './token'
+import { getTokens, refreshTokens } from './token'
 
 export const getAllCheckins = async (accessToken) => {
   const options = { headers: { "Authorization": `Bearer ${accessToken}` } }
@@ -69,7 +69,7 @@ export const getChurchName = async (userId) => {
 // }
 
 export const getPermission = async (userId) => {
-  const { accessToken, pcoId } = await getTokens(userId)
+  const { accessToken, pcoId } = await refreshTokens(userId)
   const options = { headers: { "Authorization": `Bearer ${accessToken}` } }
   const fetchPermission = await fetch(`https://api.planningcenteronline.com/check-ins/v2/people/${pcoId}`, options)
   const permission = await fetchPermission.json()

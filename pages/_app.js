@@ -10,6 +10,8 @@ const GlobalStyle = ({ children }) => {
     <>
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <title>beepr.</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <CSSReset />
       <Global

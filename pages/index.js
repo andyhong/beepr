@@ -23,18 +23,12 @@ const Home = () => {
 
   return (
     <>
-      <Head>
-        <title>beepr.</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <Box
         as="header"
         backgroundColor="blue.500"
       >
         <Flex
-          px="3rem"
-          py="4rem"
+          p="3rem"
           direction="column"
           alignItems="center"
           justifyContent="center"
@@ -63,14 +57,19 @@ const Home = () => {
             {` `} app to page parents during church.
           </Text>
           <Button
+            mb={4}
             size="lg"
+            leftIcon="pco"
             backgroundColor="white"
             color="blue.500"
             fontWeight="medium"
-            onClick={() => signIn("pco")}
+            onClick={() => signIn("pco", { callbackUrl: `${process.env.NEXT_PUBLIC_URL}/text` })}
           >
-            Continue with PCO
+            Log in with PCO
           </Button>
+          <Link href="/demo">
+            <Text as="u" fontWeight="bold" color="white">Try our demo &rarr;</Text>
+          </Link>
         </Flex>
       </Box>
       <Box
@@ -141,16 +140,16 @@ const Home = () => {
           </Stack>
         </Flex>
         <Flex
-            as="footer"
-            borderTop="1px solid"
-            borderTopColor="gray.100"
-            height="6rem"
-            direction="column"
-            justifyContent="center"
-            textAlign="center"
-          >
-            Made with ❤️.
-          </Flex>
+          as="footer"
+          borderTop="1px solid"
+          borderTopColor="gray.100"
+          height="6rem"
+          direction="column"
+          justifyContent="center"
+          textAlign="center"
+        >
+          Made with ❤️.
+        </Flex>
       </Box>
     </>
   )

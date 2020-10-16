@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/client'
+import { getSession } from 'next-auth/client'
 import {
   FormControl,
   FormLabel,
@@ -19,9 +18,9 @@ import fetch from 'isomorphic-unfetch'
 
 import Container from '../components/Container'
 import Home from './index'
+import { getPermission } from '../utils/pco'
 
-const Text = () => {
-  const [ session, loading ] = useSession()
+const Text = ({ session, permission }) => {
   const router = useRouter()
 
   const [code, setCode] = useState("")
@@ -31,7 +30,7 @@ const Text = () => {
 
   useEffect(() => {
     if (session) {
-      if (session.user.permission === "Editor" || session.user.permission === "Viewer") {
+      if (permission === "Editor" || permission === "Viewer") {
         setAuthorized(true)
       }
       return
@@ -71,15 +70,11 @@ const Text = () => {
 
   return (
     <>
-      <Head>
-        <title>beepr.</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       {!session && <>
         <Home />
       </>}
       {session && <>
-        <Container>
+        <Container variant="app">
           <Flex direction="column">
             {!authorized && <>
               <Alert
@@ -132,6 +127,22 @@ const Text = () => {
         </>}
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context)
+  let permission = null
+  if (session) {
+    const permissionInfo = await getPermission(session.user.id)
+    permission = permissionInfo
+  }
+
+  return {
+    props: {
+      session,
+      permission
+    }
+  }
 }
 
 export default Text

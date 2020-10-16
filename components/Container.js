@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, Button } from '@chakra-ui/core'
-import { signOut } from "next-auth/client"
+import { signIn, signOut } from "next-auth/client"
 
-const Container = ({ children }) => {
+const Container = (props) => {
 
   return (
     <Box
@@ -30,18 +30,32 @@ const Container = ({ children }) => {
           >
             beepr.
           </Heading>
-          <Button
-            variant="link"
-            color="white"
-            width="4.5rem"
-            mb={-2}
-            mr={-2}
-            onClick={() => signOut()}
-          >
-            Log out
-          </Button>
+          {props.variant === "app" && <>
+            <Button
+              variant="link"
+              color="white"
+              width="4.5rem"
+              mb={-2}
+              mr={-2}
+              onClick={() => signOut()}
+            >
+              Log out
+            </Button>
+          </>}
+          {props.variant === "demo" && <>
+            <Button
+              variant="link"
+              color="white"
+              width="4.5rem"
+              mb={-2}
+              mr={-2}
+              onClick={() => signIn("pco", { callbackUrl: `${process.env.NEXT_PUBLIC_URL}/text` })}
+            >
+              Log In
+            </Button>
+          </>}
         </Flex>
-        {children}
+        {props.children}
       </Flex>
     </Box>
   )

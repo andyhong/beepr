@@ -18,7 +18,7 @@ export const getTokens = async (userId) => {
 
 export const refreshTokens = async (userId) => {
   const { db } = await connectToDatabase()
-  const { refreshToken } = await getTokens(userId)
+  const { refreshToken, pcoId } = await getTokens(userId)
   const options = {
     method: "POST",
     headers: { 'Content-Type': "application/json" },
@@ -42,6 +42,7 @@ export const refreshTokens = async (userId) => {
 
   return {
     accessToken: json.access_token,
-    refreshToken: json.refresh_token
+    refreshToken: json.refresh_token,
+    pcoId
   }
 }

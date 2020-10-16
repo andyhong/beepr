@@ -1,5 +1,4 @@
 import NextAuth from 'next-auth'
-import { getPermission } from '../../../utils/pco'
 
 const options = {
 
@@ -33,7 +32,7 @@ const options = {
   callbacks: {
     session: async (session, user) => {
       session.user.id = user.id
-      session.user.permission = await getPermission(user.id)
+      // session.user.permission = await getPermission(user.id)
       return Promise.resolve(session)
     },
   },
