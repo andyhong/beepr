@@ -25,13 +25,13 @@ const Text = ({ session, permission }) => {
 
   const [code, setCode] = useState("")
   const [ isLoading, setIsLoading ] = useState(false)
-  const [ authorized, setAuthorized ] = useState(false)
+  const [ authorized, setAuthorized ] = useState(true)
   const toast = useToast()
 
   useEffect(() => {
     if (session) {
-      if (permission === "Editor" || permission === "Viewer") {
-        setAuthorized(true)
+      if (permission !== "Editor" || permission !== "Viewer") {
+        setAuthorized(false)
       }
       return
     }
