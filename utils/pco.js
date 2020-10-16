@@ -72,6 +72,10 @@ export const getPermission = async (userId) => {
   const { accessToken, pcoId } = await refreshTokens(userId)
   const options = { headers: { "Authorization": `Bearer ${accessToken}` } }
   const fetchPermission = await fetch(`https://api.planningcenteronline.com/check-ins/v2/people/${pcoId}`, options)
-  const permission = await fetchPermission.json()
-  return permission.data.attributes.permission
+  if (fetchPermission.status == 200) {
+    const permission = await fetchPermission.json()
+    return permission.data.attributes.permission
+  } else {
+    return null
+  }
 }

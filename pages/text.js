@@ -30,7 +30,7 @@ const Text = ({ session, permission }) => {
 
   useEffect(() => {
     if (session) {
-      if (permission !== "Editor" || permission !== "Viewer") {
+      if (!permission) {
         setAuthorized(false)
       }
       return
